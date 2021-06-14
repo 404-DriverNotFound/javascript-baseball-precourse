@@ -19,14 +19,41 @@ export default function BaseballGame() {
     return answer;
   };
 
-  this.handleSubmit = function handleSubmit() {
-    this.play(answer, +(userInput.value));
-    // TODO: 힌트 생성 및 정답 처리
+  this.handleError = function handleError() {
+    userInput.value = '';
+    alert('잘못된 값을 입력하셨습니다.\n1부터 9까지의 서로 다른 수로 이루어진 3자리 숫자를 입력해주세요.\n예시) 123, 645, 987');
+  };
+
+  this.isValidInput = function isValidInput(input) {
+    if (Number.isNaN(input) || input < 123 || input > 987) {
+      return false;
+    }
+
+    const set = new Set();
+    let num = input;
+
+    for (let i = 0; i < 3; i += 1) {
+      set.add(num % 10);
+      num = Math.floor(num / 10);
+    }
+
+    if (set.size !== 3 || set.has(0)) {
+      return false;
+    }
+    return true;
   };
 
   this.play = function play(computerInputNumbers, userInputNumbers) {
-  // TODO: 유효성 검사
+    if (!this.isValidInput(userInputNumbers)) {
+      return this.handleError();
+    }
+    // TODO: 힌트 생성
     return "결과 값 String";
+  };
+
+  this.handleSubmit = function handleSubmit() {
+    const result = this.play(answer, +(userInput.value));
+    // TODO: 정답 처리
   };
 
   const handler = this.handleSubmit.bind(this);
