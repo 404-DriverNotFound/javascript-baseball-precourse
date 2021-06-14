@@ -19,6 +19,11 @@ export default function BaseballGame() {
     return answer;
   };
 
+  this.resetGame = function resetGame() {
+    answer.length = 0;
+    this.setRandomAnswer();
+  };
+
   this.handleError = function handleError() {
     userInput.value = '';
     alert('잘못된 값을 입력하셨습니다.\n1부터 9까지의 서로 다른 수로 이루어진 3자리 숫자를 입력해주세요.\n예시) 123, 645, 987');
@@ -58,7 +63,7 @@ export default function BaseballGame() {
 
   const handler = this.handleSubmit.bind(this);
 
-  this.setRandomAnswer();
+  this.resetGame();
   submitButton.addEventListener('click', handler);
 }
 
