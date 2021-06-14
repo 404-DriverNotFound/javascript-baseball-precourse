@@ -4,8 +4,11 @@ export default function BaseballGame() {
   };
 }
 
-function printNum() {
-  alert('TEST');
+function randomValue() {
+  const set = new Set();
+  while (set.size !== 3) {
+    set.add(Math.floor(Math.random() * 10) + 1);
+  }
 }
 
 // export default class BaseballGame {
