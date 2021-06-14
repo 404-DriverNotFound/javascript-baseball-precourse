@@ -1,5 +1,5 @@
 export default function BaseballGame() {
-  let answer;
+  const answer = [];
 
   const userInput = document.querySelector('#user-input');
   const submitButton = document.querySelector('#submit');
@@ -10,10 +10,10 @@ export default function BaseballGame() {
 
   this.setRandomAnswer = () => {
     const array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    answer = 0;
+    answer.length = 0;
     for (let i = 0; i < 3; i += 1) {
       const idx = this.getRandomDecimalLessThan(array.length);
-      answer += array[idx] * (10 ** i);
+      answer.push(array[idx]);
       array.splice(idx, 1);
     }
     return answer;
