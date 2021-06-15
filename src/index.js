@@ -41,7 +41,9 @@ export default function BaseballGame() {
   }
 
   function handleError() {
-    alert('잘못된 값을 입력하셨습니다.\n1부터 9까지의 서로 다른 수로 이루어진 3자리 숫자를 입력해주세요.\n예시) 123, 645, 987');
+    alert(`잘못된 값을 입력하셨습니다.
+1부터 9까지의 서로 다른 수로 이루어진 3자리 숫자를 입력해주세요.
+예시) 123, 645, 987`);
     return false;
   }
 
@@ -116,13 +118,15 @@ export default function BaseballGame() {
       return;
     }
     if (result === '3스트라이크') {
-      resultDiv.innerHTML = '🎉 정답을 맞추셨습니다! 🎉<br>게임을 새로 시작하시겠습니까? ';
+      resultDiv.innerText = `🎉 정답을 맞추셨습니다! 🎉
+게임을 새로 시작하시겠습니까? `;
 
       const restartButton = document.createElement('button');
       restartButton.id = 'game-restart-button';
       restartButton.innerText = '게임 재시작';
 
-      restartButton.addEventListener('click', resetGame);
+      const restartHandler = resetGame.bind(this);
+      restartButton.addEventListener('click', restartHandler);
       resultDiv.appendChild(restartButton);
     } else {
       resultDiv.innerHTML = result;
@@ -130,7 +134,8 @@ export default function BaseballGame() {
   }
 
   resetGame();
-  submitButton.addEventListener('click', handleSubmit);
+  const submitHandler = handleSubmit.bind(this);
+  submitButton.addEventListener('click', submitHandler);
 }
 
 new BaseballGame();
