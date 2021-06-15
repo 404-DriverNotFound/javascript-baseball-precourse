@@ -94,10 +94,7 @@ export default function BaseballGame() {
     if (gameResult.strikes > 0) {
       resultStr += `${gameResult.strikes}스트라이크`;
     }
-    if (resultStr.length === 0) {
-      return '낫싱';
-    }
-    return resultStr;
+    return (resultStr.length === 0 ? '낫싱' : resultStr);
   };
 
   this.handleSubmit = function handleSubmit() {
