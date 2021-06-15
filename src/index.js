@@ -112,6 +112,7 @@ export default function BaseballGame() {
   this.handleSubmit = function handleSubmit() {
     const result = this.play(answer, +(userInput.value));
     if (result === false) {
+      this.resetResultStr();
       return;
     }
     if (result === '3스트라이크') {
