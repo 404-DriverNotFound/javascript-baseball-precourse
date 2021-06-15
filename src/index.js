@@ -5,47 +5,47 @@ export default function BaseballGame() {
   const submitButton = document.querySelector('#submit');
   const resultDiv = document.querySelector('#result');
 
-  this.getRandomDecimalLessThan = function getRandomDecimalLessThan(num) {
+  function getRandomDecimalLessThan(num) {
     return Math.floor((Math.random() * 10) % num);
-  };
+  }
 
-  this.setRandomAnswer = () => {
+  function setRandomAnswer() {
     const array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     answer.length = 0;
 
     for (let i = 0; i < 3; i += 1) {
-      const idx = this.getRandomDecimalLessThan(array.length);
+      const idx = getRandomDecimalLessThan(array.length);
       answer.push(array[idx]);
       array.splice(idx, 1);
     }
     return answer;
-  };
+  }
 
-  this.initAnswer = function initAnswer() {
+  function initAnswer() {
     answer.length = 0;
-  };
+  }
 
-  this.resetResultStr = function resetResultStr() {
+  function resetResultStr() {
     resultDiv.innerHTML = '';
-  };
+  }
 
-  this.resetUserInput = function resetUserInput() {
+  function resetUserInput() {
     userInput.value = '';
-  };
+  }
 
-  this.resetGame = function resetGame() {
-    this.resetResultStr();
-    this.resetUserInput();
-    this.initAnswer();
-    this.setRandomAnswer();
-  };
+  function resetGame() {
+    resetResultStr();
+    resetUserInput();
+    initAnswer();
+    setRandomAnswer();
+  }
 
-  this.handleError = function handleError() {
+  function handleError() {
     alert('잘못된 값을 입력하셨습니다.\n1부터 9까지의 서로 다른 수로 이루어진 3자리 숫자를 입력해주세요.\n예시) 123, 645, 987');
     return false;
-  };
+  }
 
-  this.isValidInput = function isValidInput(input) {
+  function isValidInput(input) {
     if (Number.isNaN(input) || input < 123 || input > 987) {
       return false;
     }
@@ -61,9 +61,9 @@ export default function BaseballGame() {
       return false;
     }
     return true;
-  };
+  }
 
-  this.makeGameResult = function makeGameResult(input) {
+  function makeGameResult(input) {
     const inputArray = [];
     const answerArray = answer.slice();
     const obj = {
@@ -89,13 +89,13 @@ export default function BaseballGame() {
       obj.balls += (answerArray.includes(inputArray[i]) ? 1 : 0);
     }
     return obj;
-  };
+  }
 
-  this.play = function play(computerInputNumbers, userInputNumbers) {
-    if (!this.isValidInput(userInputNumbers)) {
-      return this.handleError();
+  function play(computerInputNumbers, userInputNumbers) {
+    if (!isValidInput(userInputNumbers)) {
+      return handleError();
     }
-    const gameResult = this.makeGameResult(userInputNumbers);
+    const gameResult = makeGameResult(userInputNumbers);
     let resultStr = '';
     if (gameResult.balls > 0) {
       resultStr += `${gameResult.balls}볼`;
@@ -107,12 +107,12 @@ export default function BaseballGame() {
       resultStr += `${gameResult.strikes}스트라이크`;
     }
     return (resultStr.length === 0 ? '낫싱' : resultStr);
-  };
+  }
 
-  this.handleSubmit = function handleSubmit() {
-    const result = this.play(answer, +(userInput.value));
+  function handleSubmit() {
+    const result = play(answer, +(userInput.value));
     if (result === false) {
-      this.resetResultStr();
+      resetResultStr();
       return;
     }
     if (result === '3스트라이크') {
@@ -122,18 +122,15 @@ export default function BaseballGame() {
       restartButton.id = 'game-restart-button';
       restartButton.innerText = '게임 재시작';
 
-      const handler = this.resetGame.bind(this);
-      restartButton.addEventListener('click', handler);
+      restartButton.addEventListener('click', resetGame);
       resultDiv.appendChild(restartButton);
     } else {
       resultDiv.innerHTML = result;
     }
-  };
+  }
 
-  const handler = this.handleSubmit.bind(this);
-
-  this.resetGame();
-  submitButton.addEventListener('click', handler);
+  resetGame();
+  submitButton.addEventListener('click', handleSubmit);
 }
 
-new BaseballGame();
+BaseballGame();
