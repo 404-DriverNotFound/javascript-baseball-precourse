@@ -2,14 +2,14 @@
 
 
 ## 📝 이론 정리
+### 모듈화 할 때 유의점
 - 참고 1: [모듈화(javascript.info)](https://ko.javascript.info/import-export)  
   참고 2: [모듈화(MDN)](https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Modules)
-- 참고 1: [클로저](https://hyunseob.github.io/2016/08/30/javascript-closure/)  
-  참고 2: [클로저(MDN)](https://developer.mozilla.org/ko/docs/Web/JavaScript/Closures)
-### 모듈화 할 때 유의점
 - 모듈을 포함한 스크립트를 HTML 파일에 포함한 경우, 로컬(예를 들어 file://URL)에서는 JS의 모듈 보안 요구사항으로 인해 CORS 오류가 발생한다. 따라서 모듈이 있는 HTML은 서버를 통해 테스트 해야 한다.
 - 그 외 일반 스크립트와 다른 점은 [MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Modules#other_differences_between_modules_and_standard_scripts) 참고.
 ### 클로저란?
+- 참고 1: [클로저](https://hyunseob.github.io/2016/08/30/javascript-closure/)  
+  참고 2: [클로저(MDN)](https://developer.mozilla.org/ko/docs/Web/JavaScript/Closures)
 - 클로저는 함수와 함수가 선언된 어휘적 환경의 조합이다.
 - 클로저에서 property로 선언된 것은 외부 scope에서도 접근하고 사용할 수 있다.
 - 클로저를 이용하면 [private 변수, 메소드를 사용할 수 있다.](https://developer.mozilla.org/ko/docs/Web/JavaScript/Closures#%ED%81%B4%EB%A1%9C%EC%A0%80%EB%A5%BC_%EC%9D%B4%EC%9A%A9%ED%95%B4%EC%84%9C_%ED%94%84%EB%9D%BC%EC%9D%B4%EB%B9%97_%EB%A9%94%EC%86%8C%EB%93%9C_private_method_%ED%9D%89%EB%82%B4%EB%82%B4%EA%B8%B0)
@@ -31,7 +31,7 @@
   - 1부터 9까지
   - 서로 다른 수로 이루어진
   - 세 자리 숫자
-- submit 이벤트 처리
+- click 이벤트 처리
   - 유저 측 입력 받기
 - 입력값 확인
     1. 유효성 검사  
