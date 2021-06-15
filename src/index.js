@@ -1,13 +1,14 @@
+import { pickRandomNumbers } from './utils.js';
+
 export default function BaseballGame() {
-  this.play = function (computerInputNumbers, userInputNumbers) {
-    return "결과 값 String";
+  const answer = pickRandomNumbers();
+
+  this.play = function baseballPlay(computerInputNumbers, userInputNumbers) {
+    return '결과 값 String';
   };
+
+  console.log(answer);
 }
 
-// export default class BaseballGame {
-//   play(computerInputNumbers, userInputNumbers) {
-//     return "결과 값 String";
-//   }
-// }
-
+// eslint-disable-next-line no-new
 new BaseballGame();
