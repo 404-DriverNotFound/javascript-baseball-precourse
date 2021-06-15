@@ -9,10 +9,14 @@
 ### 모듈화 할 때 유의점
 - 모듈을 포함한 스크립트를 HTML 파일에 포함한 경우, 로컬(예를 들어 file://URL)에서는 JS의 모듈 보안 요구사항으로 인해 CORS 오류가 발생한다. 따라서 모듈이 있는 HTML은 서버를 통해 테스트 해야 한다.
 - 그 외 일반 스크립트와 다른 점은 [MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Modules#other_differences_between_modules_and_standard_scripts) 참고.
-### 클로저
+### 클로저란?
 - 클로저는 함수와 함수가 선언된 어휘적 환경의 조합이다.
 - 클로저에서 property로 선언된 것은 외부 scope에서도 접근하고 사용할 수 있다.
 - 클로저를 이용하면 [private 변수, 메소드를 사용할 수 있다.](https://developer.mozilla.org/ko/docs/Web/JavaScript/Closures#%ED%81%B4%EB%A1%9C%EC%A0%80%EB%A5%BC_%EC%9D%B4%EC%9A%A9%ED%95%B4%EC%84%9C_%ED%94%84%EB%9D%BC%EC%9D%B4%EB%B9%97_%EB%A9%94%EC%86%8C%EB%93%9C_private_method_%ED%9D%89%EB%82%B4%EB%82%B4%EA%B8%B0)
+### 콜백이란?
+- 참고: [도대체 콜백이 뭔데?](https://medium.com/@oasis9217/%EB%B2%88%EC%97%AD-javascript-%EB%8F%84%EB%8C%80%EC%B2%B4-%EC%BD%9C%EB%B0%B1%EC%9D%B4-%EB%AD%94%EB%8D%B0-65bb82556c56)
+- 콜백 함수는 다른 함수에 인자로 넘겨지는 함수이다.
+- 기본적으로 콜백 함수의 this는 전역 객체에 바인딩되어 있으나, addEventListener를 통해 등록된 handler 함수의 this는 [event target에 바인딩](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#the_value_of_this_within_the_handler) 되어있다. 따라서 event가 실행되었을 때 this로 event target 대신 객체를 참조하고 싶다면 [bind 함수](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)를 이용해 새로운 함수를 콜백으로 등록해주어야 한다.
 ### 이 과제에서
 - ``function BaseballGame()``은 ``new``를 이용하여 호출하는 경우 [생성자 함수](https://ko.javascript.info/constructor-new#ref-257)로 취급되고 ``this``는 생성자 함수가 암묵적으로 생성한 빈 객체에 바인딩된다. 따라서 ``const game = new BaseballGame(); console.log(game);``을 추가해보면 생성된 BaseballGame 객체의 this 정보를 확인할 수 있다.
 - new를 사용하지 않고 ``BaseballGame()`` 함수를 호출하면 ``this``는 [전역 객체에 바인딩](https://poiemaweb.com/js-this#33-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98%EC%97%90-new-%EC%97%B0%EC%82%B0%EC%9E%90%EB%A5%BC-%EB%B6%99%EC%9D%B4%EC%A7%80-%EC%95%8A%EA%B3%A0-%ED%98%B8%EC%B6%9C%ED%95%A0-%EA%B2%BD%EC%9A%B0)된다.  
