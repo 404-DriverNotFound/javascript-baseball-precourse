@@ -1,22 +1,30 @@
 # ⚾ 미션 - 숫자 야구 게임
 
-## 🎯 기능 요구사항
 
-- 기본적으로 1부터 9까지 서로 다른 수로 이루어진 3자리의 수를 맞추는 게임이다.
-- 같은 수가 같은 자리에 있으면 `스트라이크`, 다른 자리에 있으면 `볼`, 같은 수가 전혀 없으면 `낫싱`이란 힌트를 얻고, 그 힌트를 이용해서 먼저 상대방(컴퓨터)의 수를 맞추면 승리한다.
-  - 예) 상대방(컴퓨터)의 수가 425일 때
-  - 123을 제시한 경우 : 1스트라이크
-  - 456을 제시한 경우 : 1볼 1스트라이크
-  - 789를 제시한 경우 : 낫싱
-- 위 숫자 야구게임에서 상대방의 역할을 컴퓨터가 한다. 컴퓨터는 1에서 9까지 서로 다른 임의의 수 3개를 선택한다. 게임 플레이어는 컴퓨터가 생각하고 있는 3개의 숫자를 입력하고, 컴퓨터는 입력한 숫자에 대한 결과를 출력한다.
-- 이 같은 과정을 반복해 컴퓨터가 선택한 3개의 숫자를 모두 맞히면 게임이 종료된다.
-- 게임을 종료한 후 게임을 다시 시작할 수 있다.
-- 게임을 종료한 후 id가 `game-restart-button`인 버튼을 클릭함으로써 게임을 다시 시작할 수 있다. 
-  - `예) <button id="game-restart-button">재시작</button>`
+## 📝 이론 정리
+- 참고 1: [모듈화(javascript.info)](https://ko.javascript.info/import-export)  
+  참고 2: [모듈화(MDN)](https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Modules)
+- 참고 1: [클로저](https://hyunseob.github.io/2016/08/30/javascript-closure/)  
+  참고 2: [클로저(MDN)](https://developer.mozilla.org/ko/docs/Web/JavaScript/Closures)
+### 모듈화 할 때 유의점
+- 모듈을 포함한 스크립트를 HTML 파일에 포함한 경우, 로컬(예를 들어 file://URL)에서는 JS의 모듈 보안 요구사항으로 인해 CORS 오류가 발생한다. 따라서 모듈이 있는 HTML은 서버를 통해 테스트 해야 한다.
+- 그 외 일반 스크립트와 다른 점은 [MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Modules#other_differences_between_modules_and_standard_scripts) 참고.
+### 클로저
+- 클로저는 함수와 함수가 선언된 어휘적 환경의 조합이다.
+- 클로저에서 property로 선언된 것은 외부 scope에서도 접근하고 사용할 수 있다.
+- 클로저를 이용하면 [private 변수, 메소드를 사용할 수 있다.](https://developer.mozilla.org/ko/docs/Web/JavaScript/Closures#%ED%81%B4%EB%A1%9C%EC%A0%80%EB%A5%BC_%EC%9D%B4%EC%9A%A9%ED%95%B4%EC%84%9C_%ED%94%84%EB%9D%BC%EC%9D%B4%EB%B9%97_%EB%A9%94%EC%86%8C%EB%93%9C_private_method_%ED%9D%89%EB%82%B4%EB%82%B4%EA%B8%B0)
+### 이 과제에서
+- ``function BaseballGame()``은 ``new``를 이용하여 호출하는 경우 [생성자 함수](https://poiemaweb.com/js-this#31-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98-%EB%8F%99%EC%9E%91-%EB%B0%A9%EC%8B%9D)로 취급되고 ``this``는 생성자 함수가 암묵적으로 생성한 빈 객체에 바인딩된다. 따라서 ``const game = new BaseballGame(); console.log(game);``을 추가해보면 생성된 BaseballGame 객체의 this 정보를 확인할 수 있다.
+- new를 사용하지 않고 ``BaseballGame()`` 함수를 호출하면 ``this``는 [전역 객체에 바인딩](https://poiemaweb.com/js-this#33-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98%EC%97%90-new-%EC%97%B0%EC%82%B0%EC%9E%90%EB%A5%BC-%EB%B6%99%EC%9D%B4%EC%A7%80-%EC%95%8A%EA%B3%A0-%ED%98%B8%EC%B6%9C%ED%95%A0-%EA%B2%BD%EC%9A%B0)된다.
+- 만약 ``this.property``처럼 생성자 함수의 맥락에서 ``function BaseballGame()``을 작성하였다면 ``new``를 사용하지 않고 함수를 호출했을 때 this가 전역 객체에 바인딩되므로 오류가 발생할 것이다.
+- 내가 작성한 코드는 private을 의도하여 this 없이 변수와 메소드를 작성하였으므로 생성자 함수로 호출하는 경우, 일반 함수로 호출하는 경우 모두에서 정상적으로 동작한다.
+  - 생성자 함수로 호출하는 경우: 객체의 모든 변수, 함수가 private으로 정의된다. 모든 설정은 생성자가 호출될 때 이루어지고 이외의 동작은 event가 발생할 때에만 이루어지므로 private으로 구현해도 정상 동작한다.
+  - 일반 함수로 호출하는 경우: 해당 함수가 바로 실행되어 정상 동작한다. 특정 함수에서 클로저 안의 다른 함수를 호출하는 경우 [렉시컬 scope](https://poiemaweb.com/js-scope#7-%EB%A0%89%EC%8B%9C%EC%BB%AC-%EC%8A%A4%EC%BD%94%ED%94%84)에서 타깃 함수를 탐색하여 호출하게 된다. 마찬가지로 함수 호출 시 eventListener가 설정되었기 때문에 이후에도 정상 동작한다.
+- 이 과제는 함수를 어떻게 구성하였는지, 함수를 어떤 방식으로 호출하는지에 따라 정상적으로 동작할 수도 아닐 수도 있다. 모듈화, 클로저, this 바인딩에 대해 정확히 이해하고 작성해야 한다. 기능을 모두 구현한 후 자세한 내용을 찾아보았더니 고칠 부분이 여럿 보였기 때문에 앞으로는 필요한 개념을 앞서 학습하고 코드를 작성하도록 해야겠다.
 
 <br>
 
-## 구현할 기능 목록
+## ✅ 구현할 기능 목록
 
 - 컴퓨터 측 정답 설정
   - 1부터 9까지
@@ -31,6 +39,22 @@
 - 정답 처리
   - 메시지 + button 생성
   - button 클릭 시 리셋 이벤트 실행 후 메시지 + button 삭제
+
+<br>
+
+## 🎯 기능 요구사항
+
+- 기본적으로 1부터 9까지 서로 다른 수로 이루어진 3자리의 수를 맞추는 게임이다.
+- 같은 수가 같은 자리에 있으면 `스트라이크`, 다른 자리에 있으면 `볼`, 같은 수가 전혀 없으면 `낫싱`이란 힌트를 얻고, 그 힌트를 이용해서 먼저 상대방(컴퓨터)의 수를 맞추면 승리한다.
+  - 예) 상대방(컴퓨터)의 수가 425일 때
+  - 123을 제시한 경우 : 1스트라이크
+  - 456을 제시한 경우 : 1볼 1스트라이크
+  - 789를 제시한 경우 : 낫싱
+- 위 숫자 야구게임에서 상대방의 역할을 컴퓨터가 한다. 컴퓨터는 1에서 9까지 서로 다른 임의의 수 3개를 선택한다. 게임 플레이어는 컴퓨터가 생각하고 있는 3개의 숫자를 입력하고, 컴퓨터는 입력한 숫자에 대한 결과를 출력한다.
+- 이 같은 과정을 반복해 컴퓨터가 선택한 3개의 숫자를 모두 맞히면 게임이 종료된다.
+- 게임을 종료한 후 게임을 다시 시작할 수 있다.
+- 게임을 종료한 후 id가 `game-restart-button`인 버튼을 클릭함으로써 게임을 다시 시작할 수 있다. 
+  - `예) <button id="game-restart-button">재시작</button>`
 
 <br>
 
