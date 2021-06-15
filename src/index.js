@@ -133,4 +133,4 @@ export default function BaseballGame() {
   submitButton.addEventListener('click', handleSubmit);
 }
 
-BaseballGame();
+new BaseballGame();
