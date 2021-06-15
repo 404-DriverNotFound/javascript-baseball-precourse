@@ -21,10 +21,22 @@ export default function BaseballGame() {
     return answer;
   };
 
-  this.resetGame = function resetGame() {
-    resultDiv.innerHTML = '';
-    userInput.value = '';
+  this.initAnswer = function initAnswer() {
     answer.length = 0;
+  };
+
+  this.resetResultStr = function resetResultStr() {
+    resultDiv.innerHTML = '';
+  };
+
+  this.resetUserInput = function resetUserInput() {
+    userInput.value = '';
+  };
+
+  this.resetGame = function resetGame() {
+    this.resetResultStr();
+    this.resetUserInput();
+    this.initAnswer();
     this.setRandomAnswer();
   };
 
