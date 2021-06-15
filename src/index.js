@@ -3,6 +3,7 @@ export default function BaseballGame() {
 
   const userInput = document.querySelector('#user-input');
   const submitButton = document.querySelector('#submit');
+  const resultDiv = document.querySelector('#result');
 
   this.getRandomDecimalLessThan = function getRandomDecimalLessThan(num) {
     return Math.floor((Math.random() * 10) % num);
@@ -20,6 +21,8 @@ export default function BaseballGame() {
   };
 
   this.resetGame = function resetGame() {
+    resultDiv.innerHTML = '';
+    userInput.value = '';
     answer.length = 0;
     this.setRandomAnswer();
   };
@@ -103,7 +106,17 @@ export default function BaseballGame() {
     if (result === false) {
       return;
     }
-    // TODO: 정답 처리
+    if (result === '3스트라이크') {
+      resultDiv.innerHTML = '🎉 정답을 맞추셨습니다! 🎉<br>게임을 새로 시작하시겠습니까? ';
+      const restartButton = document.createElement('button');
+      restartButton.id = 'game-restart-button';
+      restartButton.innerText = '게임 재시작';
+      const handler = this.resetGame.bind(this);
+      restartButton.addEventListener('click', handler);
+      resultDiv.appendChild(restartButton);
+    } else {
+      resultDiv.innerHTML = result;
+    }
   };
 
   const handler = this.handleSubmit.bind(this);
