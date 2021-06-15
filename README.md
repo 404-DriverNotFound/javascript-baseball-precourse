@@ -14,12 +14,9 @@
 - 클로저에서 property로 선언된 것은 외부 scope에서도 접근하고 사용할 수 있다.
 - 클로저를 이용하면 [private 변수, 메소드를 사용할 수 있다.](https://developer.mozilla.org/ko/docs/Web/JavaScript/Closures#%ED%81%B4%EB%A1%9C%EC%A0%80%EB%A5%BC_%EC%9D%B4%EC%9A%A9%ED%95%B4%EC%84%9C_%ED%94%84%EB%9D%BC%EC%9D%B4%EB%B9%97_%EB%A9%94%EC%86%8C%EB%93%9C_private_method_%ED%9D%89%EB%82%B4%EB%82%B4%EA%B8%B0)
 ### 이 과제에서
-- ``function BaseballGame()``은 ``new``를 이용하여 호출하는 경우 [생성자 함수](https://poiemaweb.com/js-this#31-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98-%EB%8F%99%EC%9E%91-%EB%B0%A9%EC%8B%9D)로 취급되고 ``this``는 생성자 함수가 암묵적으로 생성한 빈 객체에 바인딩된다. 따라서 ``const game = new BaseballGame(); console.log(game);``을 추가해보면 생성된 BaseballGame 객체의 this 정보를 확인할 수 있다.
-- new를 사용하지 않고 ``BaseballGame()`` 함수를 호출하면 ``this``는 [전역 객체에 바인딩](https://poiemaweb.com/js-this#33-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98%EC%97%90-new-%EC%97%B0%EC%82%B0%EC%9E%90%EB%A5%BC-%EB%B6%99%EC%9D%B4%EC%A7%80-%EC%95%8A%EA%B3%A0-%ED%98%B8%EC%B6%9C%ED%95%A0-%EA%B2%BD%EC%9A%B0)된다.
-- 만약 ``this.property``처럼 생성자 함수의 맥락에서 ``function BaseballGame()``을 작성하였다면 ``new``를 사용하지 않고 함수를 호출했을 때 this가 전역 객체에 바인딩되므로 오류가 발생할 것이다.
-- 내가 작성한 코드는 private을 의도하여 this 없이 변수와 메소드를 작성하였으므로 생성자 함수로 호출하는 경우, 일반 함수로 호출하는 경우 모두에서 정상적으로 동작한다.
-  - 생성자 함수로 호출하는 경우: 객체의 모든 변수, 함수가 private으로 정의된다. 모든 설정은 생성자가 호출될 때 이루어지고 이외의 동작은 event가 발생할 때에만 이루어지므로 private으로 구현해도 정상 동작한다.
-  - 일반 함수로 호출하는 경우: 해당 함수가 바로 실행되어 정상 동작한다. 특정 함수에서 클로저 안의 다른 함수를 호출하는 경우 [렉시컬 scope](https://poiemaweb.com/js-scope#7-%EB%A0%89%EC%8B%9C%EC%BB%AC-%EC%8A%A4%EC%BD%94%ED%94%84)에서 타깃 함수를 탐색하여 호출하게 된다. 마찬가지로 함수 호출 시 eventListener가 설정되었기 때문에 이후에도 정상 동작한다.
+- ``function BaseballGame()``은 ``new``를 이용하여 호출하는 경우 [생성자 함수](https://ko.javascript.info/constructor-new#ref-257)로 취급되고 ``this``는 생성자 함수가 암묵적으로 생성한 빈 객체에 바인딩된다. 따라서 ``const game = new BaseballGame(); console.log(game);``을 추가해보면 생성된 BaseballGame 객체의 this 정보를 확인할 수 있다.
+- new를 사용하지 않고 ``BaseballGame()`` 함수를 호출하면 ``this``는 [전역 객체에 바인딩](https://poiemaweb.com/js-this#33-%EC%83%9D%EC%84%B1%EC%9E%90-%ED%95%A8%EC%88%98%EC%97%90-new-%EC%97%B0%EC%82%B0%EC%9E%90%EB%A5%BC-%EB%B6%99%EC%9D%B4%EC%A7%80-%EC%95%8A%EA%B3%A0-%ED%98%B8%EC%B6%9C%ED%95%A0-%EA%B2%BD%EC%9A%B0)된다.  
+  그런데 ``function BaseballGame()``의 경우 첫 글자가 영문 대문자이므로 **생성자 함수라고 해석하는 것이 옳다.** 따라서 해당 함수의 내용은 생성자 함수의 맥락에서 작성해야 하고 사용자는 이 함수를 new 없이 호출하지 않아야 한다.
 - 이 과제는 함수를 어떻게 구성하였는지, 함수를 어떤 방식으로 호출하는지에 따라 정상적으로 동작할 수도 아닐 수도 있다. 모듈화, 클로저, this 바인딩에 대해 정확히 이해하고 작성해야 한다. 기능을 모두 구현한 후 자세한 내용을 찾아보았더니 고칠 부분이 여럿 보였기 때문에 앞으로는 필요한 개념을 앞서 학습하고 코드를 작성하도록 해야겠다.
 
 <br>
