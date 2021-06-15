@@ -12,6 +12,7 @@ export default function BaseballGame() {
   this.setRandomAnswer = () => {
     const array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     answer.length = 0;
+
     for (let i = 0; i < 3; i += 1) {
       const idx = this.getRandomDecimalLessThan(array.length);
       answer.push(array[idx]);
@@ -36,7 +37,6 @@ export default function BaseballGame() {
     if (Number.isNaN(input) || input < 123 || input > 987) {
       return false;
     }
-
     const set = new Set();
     let num = input;
 
@@ -104,9 +104,11 @@ export default function BaseballGame() {
     }
     if (result === '3스트라이크') {
       resultDiv.innerHTML = '🎉 정답을 맞추셨습니다! 🎉<br>게임을 새로 시작하시겠습니까? ';
+
       const restartButton = document.createElement('button');
       restartButton.id = 'game-restart-button';
       restartButton.innerText = '게임 재시작';
+
       const handler = this.resetGame.bind(this);
       restartButton.addEventListener('click', handler);
       resultDiv.appendChild(restartButton);
