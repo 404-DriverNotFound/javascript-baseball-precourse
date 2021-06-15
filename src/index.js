@@ -1,15 +1,5 @@
-import getUserInputNumbers from './getUserInputNumbers.js';
+import BaseballGame from './BaseballGame.js'; // FIXME how to fix this problem
+// import BaseballGame from './BaseballGame'; // NOTE ok case
 
-const submit = document.querySelector('#submit');
-submit.addEventListener('click', () => {
-  const userInputNumbers = getUserInputNumbers();
-  alert(userInputNumbers);
-});
-
-export default function BaseballGame() {
-  this.play = function play(computerInputNumbers, userInputNumbers) {
-    return '결과 값 String';
-  };
-}
-
-BaseballGame();
+const game = new BaseballGame();
+game.addEventListener();
