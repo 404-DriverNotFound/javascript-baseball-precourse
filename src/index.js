@@ -11,9 +11,11 @@ export default function BaseballGame() {
     return '결과 값 String';
   };
 
-  submitButton.addEventListener("click", () => {
+  function onSubmitButtonClicked() {
     this.play(answer, userInput.value);
-  });
+  }
+
+  submitButton.addEventListener("click", onSubmitButtonClicked.bind(this));
 }
 
 // eslint-disable-next-line no-new
