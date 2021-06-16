@@ -6,10 +6,13 @@ export function pickRandomNumbers() {
 }
 
 export function checkInputValid(inputValue) {
-  if (inputValue.length !== 3)
+  if (inputValue.length !== 3) {
     return false;
-  if (/^\d+$/.test(inputValue) === false)
+  }
+  if (/^\d+$/.test(inputValue) === false) {
     return false;
+  }
+
   const inputSet = new Set(inputValue.split(''));
   return (inputSet.size === 3);
 }

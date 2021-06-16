@@ -17,16 +17,18 @@ export default function BaseballGame() {
 
   function onSubmitButtonClicked() {
     if (checkInputValid(userInput.value) === false) {
+      // eslint-disable-next-line no-alert
       alert('🚨 입력값이 잘못되었습니다! 🚨');
       return;
     }
-    const resultString = this.play(answer, userInput.value)
+    const resultString = this.play(answer, userInput.value);
     showResultString(resultString, resultDiv, resetButton);
   }
 
   function onResetButtonClicked() {
     answer = pickRandomNumbers();
     resultDiv.innerHTML = '';
+    userInput.value = '';
   }
 
   submitButton.addEventListener('click', onSubmitButtonClicked.bind(this));
