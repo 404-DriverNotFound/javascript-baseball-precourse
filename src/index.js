@@ -7,15 +7,15 @@ export default function BaseballGame() {
   const submitButton = document.getElementById("submit");
 
   this.play = function baseballPlay(computerInputNumbers, userInputNumbers) {
-    if (checkInputValid(userInputNumbers) === false) {
-      alert('🚨 입력값이 잘못되었습니다! 🚨');
-      return;
-    }
     console.log(correctInput(computerInputNumbers, userInputNumbers));
     return '결과 값 String';
   };
 
   function onSubmitButtonClicked() {
+    if (checkInputValid(userInputNumbers) === false) {
+      alert('🚨 입력값이 잘못되었습니다! 🚨');
+      return;
+    }
     this.play(answer, userInput.value);
   }
 
