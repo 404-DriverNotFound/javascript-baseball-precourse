@@ -9,6 +9,7 @@ export default function BaseballGame() {
   const resultDiv = document.getElementById('result');
   const resetButton = document.createElement('button');
   resetButton.innerHTML = '게임 재시작';
+  resetButton.id = 'game-restart-button';
 
   this.play = function baseballPlay(computerInputNumbers, userInputNumbers) {
     const result = correctInput(computerInputNumbers, userInputNumbers);
