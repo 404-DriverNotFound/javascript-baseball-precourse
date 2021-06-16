@@ -18,6 +18,9 @@ function isValidUserInputNumbers(userInputNumbers) {
     return false;
   }
   const arr = userInputNumbers.split('').map(Number);
+  if (arr.includes(0)) {
+    return false;
+  }
   return arr.every((element) => !arr.includes(element, arr.indexOf(element) + 1));
 }
 
