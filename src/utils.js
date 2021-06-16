@@ -12,3 +12,18 @@ export function checkInputValid(inputValue) {
   const inputSet = new Set(inputValue.split(''));
   return (inputSet.size === 3);
 }
+
+export function correctInput(computerInputNumbers, userInputNumbers) {
+  const inputSet = new Set(userInputNumbers.split(''));
+  let ball = 0;
+  let strike = 0;
+  for (let index = 0; index < 3; index++) {
+    if (!inputSet.has(computerInputNumbers[index]))
+      continue;
+    if (userInputNumbers[index] === computerInputNumbers[index])
+      strike++;
+    else
+      ball++;
+  }
+  return {strike, ball};
+}
