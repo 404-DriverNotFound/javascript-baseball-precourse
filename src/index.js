@@ -1,4 +1,4 @@
-import { pickRandomNumbers, checkInputValid, correctInput } from './utils.js';
+import { pickRandomNumbers, checkInputValid, correctInput, makeResultString } from './utils.js';
 
 export default function BaseballGame() {
   const answer = pickRandomNumbers();
@@ -7,16 +7,16 @@ export default function BaseballGame() {
   const submitButton = document.getElementById("submit");
 
   this.play = function baseballPlay(computerInputNumbers, userInputNumbers) {
-    console.log(correctInput(computerInputNumbers, userInputNumbers));
-    return '결과 값 String';
+    const result = correctInput(computerInputNumbers, userInputNumbers);
+    return makeResultString(result);
   };
 
   function onSubmitButtonClicked() {
-    if (checkInputValid(userInputNumbers) === false) {
+    if (checkInputValid(userInput.value) === false) {
       alert('🚨 입력값이 잘못되었습니다! 🚨');
       return;
     }
-    this.play(answer, userInput.value);
+    console.log(this.play(answer, userInput.value));
   }
 
   submitButton.addEventListener("click", onSubmitButtonClicked.bind(this));
