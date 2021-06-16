@@ -14,5 +14,5 @@ export function checkInputValid(inputValue) {
   }
 
   const inputSet = new Set(inputValue.split(''));
-  return (inputSet.size === 3);
+  return (inputSet.size === 3 && !inputSet.has('0'));
 }
