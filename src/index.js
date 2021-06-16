@@ -1,13 +1,40 @@
+import { pickRandomNumbers, checkInputValid } from './utils.js';
+import { correctInput, makeResultString, showResultString } from './play.js';
+
 export default function BaseballGame() {
-  this.play = function (computerInputNumbers, userInputNumbers) {
-    return "결과 값 String";
+  let answer = pickRandomNumbers();
+
+  const userInput = document.getElementById('user-input');
+  const submitButton = document.getElementById('submit');
+  const resultDiv = document.getElementById('result');
+  const resetButton = document.createElement('button');
+  resetButton.innerHTML = '게임 재시작';
+  resetButton.id = 'game-restart-button';
+
+  this.play = function baseballPlay(computerInputNumbers, userInputNumbers) {
+    const result = correctInput(computerInputNumbers, userInputNumbers);
+    return makeResultString(result);
   };
+
+  function onSubmitButtonClicked() {
+    if (checkInputValid(userInput.value) === false) {
+      // eslint-disable-next-line no-alert
+      alert('🚨 입력값이 잘못되었습니다! 🚨');
+      return;
+    }
+    const resultString = this.play(answer, userInput.value);
+    showResultString(resultString, resultDiv, resetButton);
+  }
+
+  function onResetButtonClicked() {
+    answer = pickRandomNumbers();
+    resultDiv.innerHTML = '';
+    userInput.value = '';
+  }
+
+  submitButton.addEventListener('click', onSubmitButtonClicked.bind(this));
+  resetButton.addEventListener('click', onResetButtonClicked);
 }
 
-// export default class BaseballGame {
-//   play(computerInputNumbers, userInputNumbers) {
-//     return "결과 값 String";
-//   }
-// }
-
+// eslint-disable-next-line no-new
 new BaseballGame();
