@@ -27,3 +27,16 @@ export function makeResultString(resultObject) {
 
   return resultArray.join(' ');
 }
+
+export function showResultString(resultString, resultDiv, resetButton) {
+  if (resultString === '3스트라이크') {
+    resultDiv.innerHTML = `
+      🎉 <b>정답을 맞추셨습니다!</b> 🎉
+      <br>
+      게임을 새로 시작하시겠습니까?
+    `;
+    resultDiv.appendChild(resetButton);
+  }
+  else
+    resultDiv.innerHTML = resultString;
+}
