@@ -1,141 +1,64 @@
+/* eslint-disable import/extensions */
+/* eslint-disable no-param-reassign */
+import {
+  makeRandomAnswer,
+  isValidInput,
+  makeGameResult,
+  makeResultStr,
+} from './utils.js';
+
 export default function BaseballGame() {
-  const answer = [];
+  let answer;
 
-  const userInput = document.querySelector('#user-input');
-  const submitButton = document.querySelector('#submit');
-  const resultDiv = document.querySelector('#result');
+  const $userInput = document.querySelector('#user-input');
+  const $submitButton = document.querySelector('#submit');
+  const $resultDiv = document.querySelector('#result');
 
-  function getRandomDecimalLessThan(num) {
-    return Math.floor((Math.random() * 10) % num);
-  }
-
-  function setRandomAnswer() {
-    const array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    answer.length = 0;
-
-    for (let i = 0; i < 3; i += 1) {
-      const idx = getRandomDecimalLessThan(array.length);
-      answer.push(array[idx]);
-      array.splice(idx, 1);
-    }
-    return answer;
-  }
-
-  function initAnswer() {
-    answer.length = 0;
-  }
-
-  function resetResultStr() {
-    resultDiv.innerHTML = '';
-  }
-
-  function resetUserInput() {
-    userInput.value = '';
-  }
+  const $restartButton = document.createElement('button');
+  $restartButton.id = 'game-restart-button';
+  $restartButton.innerText = '게임 재시작';
 
   function resetGame() {
-    resetResultStr();
-    resetUserInput();
-    initAnswer();
-    setRandomAnswer();
+    $resultDiv.innerHTML = '';
+    $userInput.value = '';
+    answer = '';
+    answer = makeRandomAnswer();
   }
 
   function handleError() {
+    // eslint-disable-next-line no-alert
     alert(`잘못된 값을 입력하셨습니다.
 1부터 9까지의 서로 다른 수로 이루어진 3자리 숫자를 입력해주세요.
 예시) 123, 645, 987`);
-    return false;
   }
-
-  function isValidInput(input) {
-    if (Number.isNaN(input) || input < 123 || input > 987) {
-      return false;
-    }
-    const set = new Set();
-    let num = input;
-
-    for (let i = 0; i < 3; i += 1) {
-      set.add(num % 10);
-      num = Math.floor(num / 10);
-    }
-
-    if (set.size !== 3 || set.has(0)) {
-      return false;
-    }
-    return true;
-  }
-
-  function makeGameResult(input) {
-    const inputArray = [];
-    const answerArray = answer.slice();
-    const obj = {
-      balls: 0,
-      strikes: 0,
-    };
-    let num = input;
-
-    for (let i = 0; i < 3; i += 1) {
-      inputArray.splice(0, 0, num % 10);
-      num = Math.floor(num / 10);
-    }
-
-    for (let i = 0; i < inputArray.length; i += 1) {
-      if (inputArray[i] === answerArray[i]) {
-        obj.strikes += 1;
-        inputArray.splice(i, 1);
-        answerArray.splice(i, 1);
-        i -= 1;
-      }
-    }
-    for (let i = 0; i < inputArray.length; i += 1) {
-      obj.balls += (answerArray.includes(inputArray[i]) ? 1 : 0);
-    }
-    return obj;
-  }
-
   function play(computerInputNumbers, userInputNumbers) {
     if (!isValidInput(userInputNumbers)) {
-      return handleError();
+      return false;
     }
-    const gameResult = makeGameResult(userInputNumbers);
-    let resultStr = '';
-    if (gameResult.balls > 0) {
-      resultStr += `${gameResult.balls}볼`;
-    }
-    if (gameResult.balls > 0 && gameResult.strikes > 0) {
-      resultStr += ' ';
-    }
-    if (gameResult.strikes > 0) {
-      resultStr += `${gameResult.strikes}스트라이크`;
-    }
-    return (resultStr.length === 0 ? '낫싱' : resultStr);
+    return makeResultStr(makeGameResult(computerInputNumbers, userInputNumbers));
   }
 
   function handleSubmit() {
-    const result = play(answer, +(userInput.value));
+    const result = play(answer, $userInput.value);
     if (result === false) {
-      resetResultStr();
+      handleError();
+      $resultDiv.innerHTML = '';
       return;
     }
     if (result === '3스트라이크') {
-      resultDiv.innerText = `🎉 정답을 맞추셨습니다! 🎉
+      $resultDiv.innerText = `🎉 정답을 맞추셨습니다! 🎉
 게임을 새로 시작하시겠습니까? `;
 
-      const restartButton = document.createElement('button');
-      restartButton.id = 'game-restart-button';
-      restartButton.innerText = '게임 재시작';
-
-      const restartHandler = resetGame.bind(this);
-      restartButton.addEventListener('click', restartHandler);
-      resultDiv.appendChild(restartButton);
+      $resultDiv.appendChild($restartButton);
     } else {
-      resultDiv.innerHTML = result;
+      $resultDiv.innerHTML = result;
     }
   }
 
   resetGame();
-  const submitHandler = handleSubmit.bind(this);
-  submitButton.addEventListener('click', submitHandler);
+  $restartButton.addEventListener('click', resetGame);
+  $submitButton.addEventListener('click', handleSubmit);
 }
 
+// eslint-disable-next-line no-new
 new BaseballGame();
