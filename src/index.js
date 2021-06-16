@@ -1,4 +1,4 @@
-import { pickRandomNumbers } from './utils.js';
+import { pickRandomNumbers, checkInputValid } from './utils.js';
 
 export default function BaseballGame() {
   const answer = pickRandomNumbers();
@@ -8,6 +8,9 @@ export default function BaseballGame() {
 
   this.play = function baseballPlay(computerInputNumbers, userInputNumbers) {
     console.log(userInputNumbers);
+    if (checkInputValid(userInputNumbers) === false) {
+      alert('🚨 입력값이 잘못되었습니다! 🚨');
+    }
     return '결과 값 String';
   };
 

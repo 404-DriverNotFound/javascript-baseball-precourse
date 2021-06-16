@@ -4,6 +4,11 @@ export function pickRandomNumbers() {
   return numbers.slice(-3).join('');
 }
 
-export function test() {
-  console.log('test');
+export function checkInputValid(inputValue) {
+  if (inputValue.length !== 3)
+    return false;
+  if (/^\d+$/.test(inputValue) === false)
+    return false;
+  const inputSet = new Set(inputValue.split(''));
+  return (inputSet.size === 3);
 }
