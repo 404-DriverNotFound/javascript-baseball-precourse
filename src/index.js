@@ -1,28 +1,13 @@
-const set = new Set();
+import PlayGame from './game/playGame.js';
+import GetGameResult from './game/getGameResult.js';
+import GetComputerInput from './input/getComputerInput.js';
 
 export default function BaseballGame() {
-  this.play = function (computerInputNumbers, userInputNumbers) {
-    return '결과 값 String';
+  const computerInputNumbers = GetComputerInput();
+  this.play = function (computerInput, userInput) {
+    return GetGameResult(computerInput, userInput);
   };
+  PlayGame(computerInputNumbers, this.play);
 }
-
-function randomValue() {
-  while (set.size !== 3) {
-    set.add(Math.floor(Math.random() * 10) + 1);
-  }
-  alert(set);
-}
-
-function CompareWithInput() {
-  const app = document.getElementById('app');
-}
-
-// export default class BaseballGame {
-//   play(computerInputNumbers, userInputNumbers) {
-//     return "결과 값 String";
-//   }
-// }
-
-export { set, randomValue };
 
 new BaseballGame();
