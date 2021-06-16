@@ -1,4 +1,5 @@
-import { pickRandomNumbers, checkInputValid, correctInput, makeResultString } from './utils.js';
+import { pickRandomNumbers, checkInputValid } from './utils.js';
+import { correctInput, makeResultString } from './play.js';
 
 export default function BaseballGame() {
   const answer = pickRandomNumbers();
