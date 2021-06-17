@@ -1,5 +1,5 @@
-import BaseballGame from './BaseballGame.js'; // FIXME how to fix this problem
-// import BaseballGame from './BaseballGame'; // NOTE ok case
+// eslint-disable-next-line import/extensions
+import BaseballGame from './BaseballGame.js';
 
 const game = new BaseballGame();
 game.addEventListener();

@@ -58,12 +58,14 @@ export default class BaseballGame {
   }
 
   onClickSubmitButton() {
-    let result = '제대로 입력하라';
     this.userInputNumbers = this.$userInput.value;
     if (isValidUserInputNumbers(this.userInputNumbers)) {
-      result = this.play(this.computerInputNumbers, this.userInputNumbers);
+      const result = this.play(this.computerInputNumbers, this.userInputNumbers);
+      this.render(result);
+    } else {
+      // eslint-disable-next-line no-alert
+      alert('제대로 입력하라');
     }
-    this.render(result);
   }
 
   onClickRestartButton() {
@@ -89,11 +91,11 @@ export default class BaseballGame {
     if (this.result === '') {
       this.result = '낫싱';
     }
-    return `<span>${this.result}</span>`;
+    return this.result;
   }
 
   render(result) {
-    let resultToHTML = result;
+    let resultToHTML = `<span>${result}</span>`;
     if (result === '정답') {
       resultToHTML = ''
         + '      <h4>\n'
