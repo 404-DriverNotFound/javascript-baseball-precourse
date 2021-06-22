@@ -1,13 +1,5 @@
-export default function BaseballGame() {
-  this.play = function (computerInputNumbers, userInputNumbers) {
-    return "결과 값 String";
-  };
-}
+// eslint-disable-next-line import/extensions
+import BaseballGame from './BaseballGame.js';
 
-// export default class BaseballGame {
-//   play(computerInputNumbers, userInputNumbers) {
-//     return "결과 값 String";
-//   }
-// }
-
-new BaseballGame();
+const game = new BaseballGame();
+game.addEventListener();
